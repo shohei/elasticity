@@ -1,0 +1,14 @@
+function[STR,HZM]=STRMAT(NFU,AL,R1,R2,SN,CS,DM,TT,HEN,DS)
+STR=zeros(12,1);
+HZM=zeros(12,1);
+%
+if R1==0
+ R1=R2/2;
+end
+[BM,QN]=BWMAT(0,AL,R1,NFU,SN,CS);
+HZM(1:6,1)=BM*HEN*DS';
+STR(1:6,1)=DM*HZM(1:6,1);
+%
+[BM,QN]=BWMAT(1,AL,R2,NFU,SN,CS);
+HZM(7:12,1)=BM*HEN*DS';
+STR(7:12,1)=DM*HZM(7:12,1);

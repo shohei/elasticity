@@ -1,0 +1,19 @@
+function [W]=MAIN
+[XYZ,D,FORCE,KOTEI,KAKOM,T]=DATAIN;
+[NODT,DIM]=size(XYZ);
+[NELT,KAKU]=size(KAKOM);
+[NOFIX,JIYU]=size(KOTEI);
+NT=NODT*(JIYU-1);
+TK=zeros(NT,NT);
+for NE=1:NELT
+  K3=KAKOM(NE,1:3);
+  X=XYZ(K3,1);
+  Y=XYZ(K3,2);
+  SM=stiff(D,X,Y,T);
+  TK=ASMAT(TK,SM,KAKOM,NE);
+end
+%
+[TK,FNT,MM,KY]=PREREA(TK,FORCE,NT,KOTEI);
+W=TK\(FNT');
+W=ARRMAT(W,NT,MM,KY);
+

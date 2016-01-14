@@ -1,0 +1,11 @@
+function[STR,HZM]=STRMAT(NFU,AL,R1,R2,DM,DS)
+STR=zeros(6,1);%応力ベクトル
+HZM=zeros(6,1);%ひずみベクトル
+%
+[BM,QN]=BWMAT(0,AL,R1,NFU);
+HZM(1:3,1)=BM*DS';
+STR(1:3,1)=DM*HZM(1:3,1);
+%
+[BM,QN]=BWMAT(1,AL,R2,NFU);
+HZM(4:6,1)=BM*DS';
+STR(4:6,1)=DM*HZM(4:6,1);
